@@ -1,0 +1,19 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.AddMedicinePage">
+
+    <StackLayout Padding="10">
+        <Entry Placeholder="Название" x:Name="nameEntry" />
+        <Entry Placeholder="Торговое название" x:Name="tradenameEntry" />
+        <Entry Placeholder="Производитель" x:Name="manufacturerEntry" />
+        <Entry Placeholder="Ссылка на изображение" x:Name="imageEntry" />
+        <Entry Placeholder="Цена" Keyboard="Numeric" x:Name="priceEntry" />
+        <Entry Placeholder="Количество" Keyboard="Numeric" x:Name="stockEntry" />
+        <Entry Placeholder="ID склада" Keyboard="Numeric" x:Name="warehouseIdEntry" />
+        <Entry Placeholder="Срок годности" x:Name="expiryDateEntry" />
+       
+
+        <Button Text="Добавить" Clicked="Button_Clicked" />
+    </StackLayout>
+
+</ContentPage>

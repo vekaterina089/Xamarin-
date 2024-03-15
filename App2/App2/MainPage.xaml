@@ -1,0 +1,45 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.MainPage">
+
+    <StackLayout VerticalOptions="FillAndExpand" Padding="10">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label Text="Склад:" VerticalOptions="Center" />
+            <Picker x:Name="warehousePicker" Title="Выберите склад" VerticalOptions="CenterAndExpand" SelectedIndexChanged="WarehousePicker_SelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Все склады</x:String>
+                        <x:String>Склад 1</x:String>
+                        <x:String>Склад 2</x:String>
+                        <x:String>Склад 3</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </StackLayout>
+
+        <Button Text="Поступление лекарств" Clicked="ReceiveDeliveryButton_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+  
+
+    <ListView x:Name="medicineListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Image Source="{Binding Image}" WidthRequest="50" HeightRequest="50" />
+                            <StackLayout Padding="10" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="16" />
+                                <Label Text="{Binding Tradename}" FontSize="14" />
+                                <Label Text="{Binding Manufacturer}" FontSize="14" />
+                                <Label Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" />
+                                <Label Text="{Binding Stock , StringFormat='Наличие: {0} шт.'}" FontSize="14" />
+                                <Label Text="{Binding WarehouseName, StringFormat='Склад: {0}'}" FontSize="14" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+    
+
+</ContentPage>
