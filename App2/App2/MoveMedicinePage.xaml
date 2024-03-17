@@ -1,0 +1,15 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.MoveMedicinePage">
+
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Выберите медикамент:" />
+            <Picker x:Name="medicinePicker" Title="Выберите медикамент" />
+            <Label Text="Выберите склад для перемещения:" />
+            <Picker x:Name="warehousePicker" Title="Выберите склад" />
+            <Button Text="Переместить" Clicked="MoveMedicineButton_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

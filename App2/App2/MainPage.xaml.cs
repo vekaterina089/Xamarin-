@@ -16,7 +16,7 @@ namespace App2
         public List<Medicine> medicines = new List<Medicine>();
         public List<Warehouses> warehouses = new List<Warehouses>();
         public List<Delivery> deliveries = new List<Delivery>();
-        private Medicine selectedMedicine;
+        public List<Issuance> issuances = new List<Issuance>();
 
         public MainPage()
         {
@@ -27,7 +27,9 @@ namespace App2
             warehouses.Add(new Warehouses() { Id = 2, Name = "Склад 2" });
             warehouses.Add(new Warehouses() { Id = 3, Name = "Склад 3" });
 
-     
+            issuances.Add(new Issuance() { Id = 2, CreatedTime = DateTime.Parse("2023-09-21T13:16:42"), Purpose = "Хирургическое отделение" });
+            issuances.Add(new Issuance() { Id = 4, CreatedTime = DateTime.Parse("2023-09-21T13:16:43"), Purpose= "Педиaтрическое отделение"});
+
 
             // Добавляем медикаменты
             medicines.Add(new Medicine()
@@ -153,7 +155,16 @@ namespace App2
             medicineListView.ItemsSource = medicines; // Обновление источника данных
         }
 
-       
+
+        private async void ShowIssuancesButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new IssuancesPage(issuances));
+        }
+       private async void MoveMedicineButton_Clicked(object sender, EventArgs e)
+        {
+                 await Navigation.PushAsync(new MoveMedicinePage(medicines,warehouses));
+        }
+
 
 
     }
@@ -192,6 +203,12 @@ namespace App2
             public int Quantity { get; set; }
             public string Reason { get; set; }
         }
-
+    
+    public class Issuance
+    {
+      public int  Id { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public string Purpose { get; set; }
+}
 
     }

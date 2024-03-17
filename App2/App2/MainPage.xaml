@@ -20,6 +20,9 @@
         
         <StackLayout>
             <Button Text="Поступление лекарств" Clicked="ReceiveDeliveryButton_Clicked" />
+            <Button Text="Показать заявки на выдачу" Clicked="ShowIssuancesButton_Clicked" />
+            <Button Text="Переместить медикамент" Clicked="MoveMedicineButton_Clicked" />
+           
         </StackLayout>
 
 
