@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.UI.Views;
+
+
 
 namespace App2
 {
@@ -13,6 +16,8 @@ namespace App2
         public List<Medicine> medicines = new List<Medicine>();
         public List<Warehouses> warehouses = new List<Warehouses>();
         public List<Delivery> deliveries = new List<Delivery>();
+        private Medicine selectedMedicine;
+
         public MainPage()
         {
             InitializeComponent();
@@ -22,7 +27,7 @@ namespace App2
             warehouses.Add(new Warehouses() { Id = 2, Name = "Склад 2" });
             warehouses.Add(new Warehouses() { Id = 3, Name = "Склад 3" });
 
-            PopulateWarehousePicker();
+     
 
             // Добавляем медикаменты
             medicines.Add(new Medicine()
@@ -72,21 +77,7 @@ namespace App2
         }
 
 
-        private void PopulateWarehousePicker()
-        {
-            List<string> warehouseNames = new List<string>();
-
-            // Добавить "Все склады" в начало списка
-            warehouseNames.Add("Все склады");
-
-            // Добавить имена складов
-            foreach (var warehouse in warehouses)
-            {
-                warehouseNames.Add(warehouse.Name);
-            }
-
-            warehousePicker.ItemsSource = warehouseNames;
-        }
+     
 
         // Обработчик события изменения выбора склада
         private void WarehousePicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,7 +118,44 @@ namespace App2
                 DisplayAlert("Наличие на складах", $"Склад {medicine.WarehouseId}: {medicine.Stock} шт.", "OK");
             }
         }
-      
+
+       
+        private async void medicineListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            Medicine selectedMedicine = e.SelectedItem as Medicine;
+
+            // Открываем страницу для ввода информации о списании
+            Page1 page1 = new Page1(selectedMedicine);
+            page1.MedicineWithdrawn += OnMedicineWithdrawn;
+            await Navigation.PushAsync(page1);
+
+            // Снимаем выделение с элемента списка, чтобы можно было выбрать его снова
+            medicineListView.SelectedItem = null;
+        }
+        // Метод для обработки события списания медикамента
+        private void OnMedicineWithdrawn(object sender, Withdrawal withdrawal)
+        {
+            // Уменьшаем количество медикамента на складе
+            var medicine = medicines.FirstOrDefault(m => m.Id == withdrawal.MedicineId);
+            if (medicine != null)
+            {
+                medicine.Stock -= withdrawal.Quantity;
+            }
+
+            // Добавляем информацию о списании в другой список
+            // Например, deliveries.Add(withdrawal);
+
+            // Обновляем ListView
+            medicineListView.ItemsSource = null; // Очистка источника данных ListView
+            medicineListView.ItemsSource = medicines; // Обновление источника данных
+        }
+
+       
+
+
     }
 
     public class Medicine
@@ -158,5 +186,12 @@ namespace App2
         public int Quantity { get; set; }
         public DateTime ExpiryDate { get; set; }
     }
+        public class Withdrawal
+        {
+            public int MedicineId { get; set; }
+            public int Quantity { get; set; }
+            public string Reason { get; set; }
+        }
 
-}
+
+    }

@@ -17,10 +17,13 @@
             </Picker>
         </StackLayout>
 
-        <Button Text="Поступление лекарств" Clicked="ReceiveDeliveryButton_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
-  
+        
+        <StackLayout>
+            <Button Text="Поступление лекарств" Clicked="ReceiveDeliveryButton_Clicked" />
+        </StackLayout>
 
-    <ListView x:Name="medicineListView" HasUnevenRows="True">
+
+        <ListView x:Name="medicineListView" HasUnevenRows="True" ItemSelected="medicineListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
